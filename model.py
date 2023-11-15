@@ -191,18 +191,6 @@ def get_params_groups(model):
             regularized.append(param)
     return [{'params': regularized}, {'params': not_regularized, 'weight_decay': 0.}]
 
-def pairwise_cosine_sim(x, y):
-        x = F.normalize(x, p=2, dim=1)
-        y = F.normalize(y, p=2, dim=1)
-        return torch.matmul(x, y.T)
-
-def EuclideanDistances(a, b):
-        sq_a = a**2
-        sum_sq_a = torch.sum(sq_a,dim=1).unsqueeze(1)  # m->[m, 1]
-        sq_b = b**2
-        sum_sq_b = torch.sum(sq_b,dim=1).unsqueeze(0)  # n->[1, n]
-        bt = b.t()
-        return torch.sqrt(sum_sq_a+sum_sq_b-2*a.mm(bt))
     
 class DistillLoss(nn.Module):
     def __init__(self, warmup_teacher_temp_epochs, nepochs, 
@@ -290,60 +278,3 @@ def initial_qhat(class_num=1000):
     return qhat
 
 
-def ce_loss(logits, targets, use_hard_labels=True, reduction='none'):
-    """
-    wrapper for cross entropy loss in pytorch.
-    
-    Args
-        logits: logit values, shape=[Batch size, # of classes]
-        targets: integer or vector, shape=[Batch size] or [Batch size, # of classes]
-        use_hard_labels: If True, targets have [Batch size] shape with int values. If False, the target is vector (default True)
-    """
-    if use_hard_labels:
-        return F.cross_entropy(logits, targets, reduction=reduction)
-    else:
-        assert logits.shape == targets.shape
-        log_pred = F.log_softmax(logits, dim=-1)
-        nll_loss = torch.sum(-targets*log_pred, dim=1)
-        return nll_loss
-
-
-def consistency_loss(student_output, teacher_output, qhat, name='ce', e_cutoff=-8, use_hard_labels=True, use_marginal_loss=True, tau=0.5):
-    assert name in ['ce', 'L2']
-    student_out = student_output / 0.1
-    student_out = student_out.chunk(2)
-
-    # teacher centering and sharpening
-    teacher_out = F.softmax(teacher_output / 0.05, dim=-1)
-    teacher_out = teacher_out.detach().chunk(2)
-    
-    total_loss = 0
-    n_loss_terms = 0
-    for iq, q in enumerate(teacher_out):
-            for v in range(len(student_out)):
-                if v == iq:
-                    # we skip cases where student and teacher operate on the same view
-                    continue
-            
-                if name == 'L2':
-                    assert q.size() == student_out[v].size()
-                    return F.mse_loss(student_out[v], q, reduction='mean')
-
-                elif name == 'ce':
-                    pseudo_label = F.softmax(q, dim=1)
-                    # max_probs, max_idx = torch.max(pseudo_label, dim=-1)
-
-                    energy = -torch.logsumexp(q, dim=1)
-                    mask_raw = energy.le(e_cutoff)
-                    mask = mask_raw.float()
-
-                    if use_marginal_loss:
-                        delta_logits = torch.log(qhat)
-                        student_out[v] = student_out[v] + tau * delta_logits
-                    
-                    masked_loss = ce_loss(student_out[v], pseudo_label, use_hard_labels, reduction='none') * mask
-                    total_loss += masked_loss.mean()
-                    n_loss_terms += 1
-                    
-    total_loss /= n_loss_terms
-    return total_loss

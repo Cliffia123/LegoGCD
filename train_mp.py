@@ -349,7 +349,7 @@ if __name__ == '__main__':
 
     if dist.get_rank() == 0:
         
-        init_experiment(args, runner_name=['simgcd'])
+        init_experiment(args, runner_name=['legogcd'])
         args.logger.info(f'Using evaluation function {args.eval_funcs[0]} to print results')
     print(args)
     main(args)

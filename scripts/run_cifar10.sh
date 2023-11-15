@@ -19,5 +19,5 @@ CUDA_VISIBLE_DEVICES=2 python train.py \
     --teacher_temp 0.04 \
     --warmup_teacher_temp_epochs 30 \
     --memax_weight 1 \
-    --thr 0.97 \
+    --thr 0.95 \
     --exp_name cifar10_simgcd

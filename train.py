@@ -21,7 +21,7 @@ from data.get_datasets import get_datasets, get_class_splits
 from util.general_utils import AverageMeter, init_experiment
 from util.cluster_and_log_utils import log_accs_from_preds
 from config import exp_root
-from model import DINOHead, info_nce_logits, SupConLoss, DistillLoss, ContrastiveLearningViewGenerator, get_params_groups, initial_qhat, update_qhat,consistency_loss, causal_inference, WeightedEntropyLoss 
+from model import DINOHead, info_nce_logits, SupConLoss, DistillLoss, ContrastiveLearningViewGenerator, get_params_groups, initial_qhat, update_qhat, causal_inference, WeightedEntropyLoss 
 
 torch.backends.cudnn.deterministic = True
 torch.backends.cudnn.benchmark = False
@@ -34,11 +34,6 @@ torch.cuda.manual_seed_all(seed)
        
 def train(student, train_loader, test_loader, unlabelled_train_loader, args):
     
-    # * Get feature
-    # feats_labeled, train_labels, feats_unlabeled = get_features_labels(train_loader, student, args)    
-    
-    # # #* Get centers
-    # protos_all, protos_l, protos_u = proto_l_u(feats_labeled, train_labels, feats_unlabeled, args)
             
     params_groups = get_params_groups(student)
     optimizer = SGD(params_groups, lr=args.lr, momentum=args.momentum, weight_decay=args.weight_decay)
@@ -290,7 +285,7 @@ if __name__ == "__main__":
     args.num_labeled_classes = len(args.train_classes)
     args.num_unlabeled_classes = len(args.unlabeled_classes)
 
-    init_experiment(args, runner_name=['simgcd'])
+    init_experiment(args, runner_name=['legogcd'])
     args.logger.info(f'Using evaluation function {args.eval_funcs[0]} to print results')
     
     torch.backends.cudnn.benchmark = True
@@ -365,10 +360,6 @@ if __name__ == "__main__":
     # ----------------------
     # PROJECTION HEAD
     # ----------------------
-    # # #* Get feature
-    # feats_labeled, train_labels, feats_unlabeled = get_features_labels(train_loader, backbone.cuda(), args)    
-    # # #* Get centers
-    # protos = proto_l_u(train_dataset, feats_labeled, train_labels, feats_unlabeled, args)
     projector = DINOHead(in_dim=args.feat_dim, out_dim=args.mlp_out_dim, nlayers=args.num_mlp_layers)
     
     model = nn.Sequential(backbone, projector).to(device)

@@ -1,5 +1,5 @@
 import torchvision
-torchvision.datasets.ImageFolder("/GPUFS/nsccgz_ywang_zfd/ImageNet/train/ILSVRC2012_img_train/data/val")
+torchvision.datasets.ImageFolder("/xxx/ImageNet/train/ILSVRC2012_img_train/data/val")
 
 import numpy as np
 
