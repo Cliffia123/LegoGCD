@@ -35,7 +35,6 @@ def get_datasets(dataset_name, train_transform, test_transform, args):
              datasets
     """
 
-    #
     if dataset_name not in get_dataset_funcs.keys():
         raise ValueError
 

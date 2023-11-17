@@ -3,15 +3,14 @@ PyTorch implementation of “Solving the Catastrophic Forgetting Problem in Gene
 
 ## 💡 Abstract
 Generalized Category Discovery~(GCD) aims to identify a mix of known and novel categories within unlabeled data sets, providing a more realistic setting for image recognition.
-Essentially, GCD needs to \textbf{remember} existing patterns thoroughly to recognize novel categories.
+Essentially, GCD needs to $\textbf{remember}$ existing patterns thoroughly to recognize novel categories.
 Recent state-of-the-art method SimGCD transfers the knowledge from known-class data to the learning of novel classes through debiased learning. 
-However, some patterns are catastrophically \textbf{forgot} during adaptation and thus lead to poor performance in novel categories classification.
+However, some patterns are catastrophically $\textbf{forgot}$ during adaptation and thus lead to poor performance in novel categories classification.
 To address this issue, we propose a novel learning approach, LegoGCD, which is seamlessly integrated into previous methods to enhance the discrimination of novel classes while maintaining performance on previously encountered known classes.
-Specifically, we design two types of techniques termed as **L**ocal **E**ntropy Re**g**ularization (LER) and Dual-views Kullback–Leibler divergence c**o**nstraint (DKL).
+Specifically, we design two types of techniques termed as **L**ocal **E**ntropy Re**g**ularization~(LER) and Dual-views Kullback–Leibler divergence c**o**nstraint~(DKL).
 The LER optimizes the distribution of potential known class samples in unlabeled data, thus ensuring the preservation of knowledge related to known categories while learning novel classes.
 Meanwhile, DKL introduces Kullback–Leibler divergence to encourage the model to produce a similar prediction distribution of two view samples from the same image.
 In this way, it successfully avoids mismatched prediction and generates more reliable potential known class samples simultaneously.
-% Both LER and DKL can be easily incorporated into SimGCD without introducing any additional parameters. 
 Extensive experiments validate that the proposed LegoGCD effectively addresses the known category forgetting issue across all datasets, \eg, delivering a $\textbf{7.74\%}$ and $\textbf{2.51\%}$ accuracy boost on known and novel classes in CUB, respectively. 
 
 
@@ -25,12 +24,6 @@ You can find the training logs and checkpoints in the directory: "dev_outputs/le
 │   └── model.pt
 ├── events.out.tfevents.1698108877.deeplearning-v191204-deeplearn.205227.0
 ├── log.txt
-├── Test\ ACC_v2_All
-│   └── events.out.tfevents.1698108985.deeplearning-v191204-deeplearn.205227.7
-├── Test\ ACC_v2_New
-│   └── events.out.tfevents.1698108985.deeplearning-v191204-deeplearn.205227.6
-├── Test\ ACC_v2_Old
-│   └── events.out.tfevents.1698108985.deeplearning-v191204-deeplearn.205227.5
 ├── Train\ ACC\ Unlabelled_v2_All
 │   └── events.out.tfevents.1698108959.deeplearning-v191204-deeplearn.205227.4
 ├── Train\ ACC\ Unlabelled_v2_New
