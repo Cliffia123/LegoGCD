@@ -15,7 +15,7 @@ Extensive experiments validate that the proposed LegoGCD effectively addresses t
 
 
 ## Models
-You can find the training logs and checkpoints in the directory: "dev_outputs/legogcd/log", with a structure example:
+You can find the training logs and checkpoints in the directory: "dev_outputs/", with a structure example:
 ```
 .
 ├── 1698108877.7779174
