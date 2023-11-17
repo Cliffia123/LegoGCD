@@ -20,4 +20,4 @@ CUDA_VISIBLE_DEVICES=3 python train.py \
     --warmup_teacher_temp_epochs 30 \
     --memax_weight 2 \
     --thr 0.7 \
-    --exp_name cub_simgcd
+    --exp_name cub_legogcd

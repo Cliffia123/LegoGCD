@@ -73,8 +73,6 @@ def split_cluster_acc_v2(y_true, y_pred, mask):
             total_new_instances = all_sum_item(total_new_instances)
     except:
         pass
-    # if total_new_instances == 0:
-    #     total_new_instances += 0.000001
     new_acc /= total_new_instances
 
     return total_acc, old_acc, new_acc

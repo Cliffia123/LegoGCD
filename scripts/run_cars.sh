@@ -20,4 +20,4 @@ CUDA_VISIBLE_DEVICES=2 python train.py \
     --warmup_teacher_temp_epochs 30 \
     --memax_weight 1 \
     --thr 0.85 \
-    --exp_name scars_simgcd
+    --exp_name scars_legogcd

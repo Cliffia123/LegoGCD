@@ -20,5 +20,5 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python3 -m torch.distributed.launch --master_port=1
     --warmup_teacher_temp_epochs 30 \
     --memax_weight 1 \
     --thr 0.7 \
-    --exp_name imagenet1k_simgcd \
+    --exp_name imagenet1k_legogcd \
     --print_freq 100
