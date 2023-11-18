@@ -11,7 +11,7 @@ Specifically, we design two types of techniques termed as **L**ocal **E**ntropy 
 The LER optimizes the distribution of potential known class samples in unlabeled data, thus ensuring the preservation of knowledge related to known categories while learning novel classes.
 Meanwhile, DKL introduces Kullback–Leibler divergence to encourage the model to produce a similar prediction distribution of two view samples from the same image.
 In this way, it successfully avoids mismatched prediction and generates more reliable potential known class samples simultaneously.
-Extensive experiments validate that the proposed LegoGCD effectively addresses the known category forgetting issue across all datasets, \eg, delivering a $\textbf{7.74\%}$ and $\textbf{2.51\%}$ accuracy boost on known and novel classes in CUB, respectively. 
+Extensive experiments validate that the proposed LegoGCD effectively addresses the known category forgetting issue across all datasets, \eg, delivering a **7.74\%** and **2.51%** accuracy boost on known and novel classes in CUB, respectively. 
 
 
 ## Models
