@@ -25,7 +25,7 @@ from model import DINOHead, info_nce_logits, SupConLoss, DistillLoss, Contrastiv
 
 torch.backends.cudnn.deterministic = True
 torch.backends.cudnn.benchmark = False
-seed = 2
+seed = 1
 np.random.seed(seed)
 random.seed(seed)  # Python random module.
 torch.manual_seed(seed)
