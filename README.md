@@ -1,5 +1,5 @@
 # Solving the Catastrophic Forgetting Problem in Generalized Category Discovery (CVPR2024)
-PyTorch implementation of “Solving the Catastrophic Forgetting Problem in Generalized Category Discovery”.
+PyTorch implementation of [“Solving the Catastrophic Forgetting Problem in Generalized Category Discovery”](https://openaccess.thecvf.com/content/CVPR2024/papers/Cao_Solving_the_Catastrophic_Forgetting_Problem_in_Generalized_Category_Discovery_CVPR_2024_paper.pdf).
 
 ## 💡 Abstract
 Generalized Category Discovery (GCD) aims to identify a mix of known and novel categories within unlabeled data sets, providing a more realistic setting for image recognition.
